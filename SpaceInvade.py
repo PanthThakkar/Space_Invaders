@@ -9,6 +9,13 @@ pygame.display.set_caption("Spcae Invaders")
 icon = pygame.image.load('UFO.png')
 pygame.display.set_icon(icon)
 
+#Talk about the player
+player = pygame.image.load('Player_model.png')
+playerX = 370
+playerY = 450
+
+
+
 running = True
 while running:
     for event in pygame.event.get():

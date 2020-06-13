@@ -1,5 +1,4 @@
 Player Image html tag:
-Icons made by <a href="https://www.flaticon.com/free-icon/battleship_2590156?term=spaceship&page=2&position=29" title="Nhor Phai">Nhor Phai</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-
+<div>Icons made by <a href="https://www.flaticon.com/free-icon/battleship_2590218?term=spaceship&page=2&position=5" title="Nhor Phai">Nhor Phai</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 UFO Image html tag:
 <div>Icons made by <a href="https://www.flaticon.com/free-icon/ufo_2927929?term=spaceship&page=1&position=5" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
