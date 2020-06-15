@@ -22,11 +22,20 @@ playerY = 450
 playerX_changed = 0
 
 #Talk about the enemy
-enemyChar = pygame.image.load('alien.png')
-alienX = random.randint(0, 735)
-alienY = random.randint(50, 150)
-alienX_changed = 5
-alienY_changed = 40
+enemyChar = []
+alienX = []
+alienY = []
+alienX_changed = []
+alienY_changed = []
+num_of_enemies = 5
+
+for enemy in range(num_of_enemies):
+
+    enemyChar.append(pygame.image.load('alien.png'))
+    alienX.append(random.randint(0, 735))
+    alienY.append(random.randint(50, 150))
+    alienX_changed.append(5)
+    alienY_changed.append(40)
 
 #Talk about the bullet
 bulletChar = pygame.image.load('bullet.png')
@@ -39,13 +48,23 @@ bulletY_changed = 10
 #Fire = The bullet is currently moving
 bullet_state = "ready"
 
-score = 0
+
+#Score
+
+score_val = 0
+font = pygame.font.Font('Skate Brand.otf', 32)
+textX = 10
+textY = 10
+
+def show_score(x, y):
+    score = font.render("Score: " + str(score_val), True, (255, 255, 255))
+    screen.blit(score, (x, y))
 
 def player(x, y):
     screen.blit(playerChar, (x, y))
 
-def enemy(x, y):
-    screen.blit(enemyChar, (x, y))
+def enemy(x, y, i):
+    screen.blit(enemyChar[i], (x, y))
 
 def fire_bullet(x, y):
     global bullet_state
@@ -95,14 +114,25 @@ while running:
         playerX = 0
 
     #Enemy Movement
-    alienX += alienX_changed
-    
-    if alienX <= 0:
-        alienX = 740
-        alienY += alienY_changed
-    elif alienX >= 750:
-        alienX = 0
-        alienY += alienY_changed
+    for alienM in range(num_of_enemies):
+        alienX[alienM] += alienX_changed[alienM]
+        
+        if alienX[alienM] <= 0:
+            alienX[alienM] = 740
+            alienY[alienM] += alienY_changed[alienM]
+        elif alienX[alienM] >= 750:
+            alienX[alienM] = 0
+            alienY[alienM] += alienY_changed[alienM]
+
+        collison = isCollision(alienX[alienM], alienY[alienM], bulletX, bulletY)
+        if collison:
+            bulletY = 480
+            bullet_state = "ready"
+            score_val += 1
+            alienX[alienM] = random.randint(0, 735)
+            alienY[alienM] = random.randint(50, 150)
+
+        enemy(alienX[alienM], alienY[alienM], alienM)
 
     #Bullet Movement
     if bulletY <= 0:
@@ -112,16 +142,7 @@ while running:
     if bullet_state is "fire":
         fire_bullet(bulletX, bulletY)
         bulletY -= bulletY_changed
-    
-    collison = isCollision(alienX, alienY, bulletX, bulletY)
-    if collison:
-        bulletY = 480
-        bullet_state = "ready"
-        score += 1
-        print(score)
-        alienX = random.randint(0, 735)
-        alienY = random.randint(50, 150)
 
     player(playerX, playerY)
-    enemy(alienX, alienY)
+    show_score(textX, textY)
     pygame.display.update()
