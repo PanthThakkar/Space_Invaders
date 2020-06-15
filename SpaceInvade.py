@@ -2,6 +2,7 @@ import pygame
 import random
 import cv2
 import math
+from pygame import mixer
 
 pygame.init()
 
@@ -9,6 +10,10 @@ screen = pygame.display.set_mode((800, 600))
 
 #For the background
 background = pygame.image.load('space.png')
+
+#For Background Sounds
+mixer.music.load('Fearless First.mp3')
+mixer.music.play(-1)
 
 #Used for the icon and title of the page
 pygame.display.set_caption("Spcae Invaders")
@@ -56,9 +61,15 @@ font = pygame.font.Font('Skate Brand.otf', 32)
 textX = 10
 textY = 10
 
+over_font = pygame.font.Font('Skate Brand.otf', 64)
+
 def show_score(x, y):
     score = font.render("Score: " + str(score_val), True, (255, 255, 255))
     screen.blit(score, (x, y))
+
+def game_over_test():
+    over_text = over_font.render("GAME OVER", True, (255, 255, 255))
+    screen.blit(over_text, (200, 250))
 
 def player(x, y):
     screen.blit(playerChar, (x, y))
@@ -99,6 +110,11 @@ while running:
                 playerX_changed = 5
             if  event.key == pygame.K_SPACE:
                 if bullet_state is "ready":
+
+                    #If wanted sound for shooting
+                    #bulletSound = mixer.Sound("Laser Sound Effect.mp3")
+                    #bulletSound.play()
+                    
                     bulletX = playerX
                     fire_bullet(playerX, playerY)
 
@@ -117,6 +133,13 @@ while running:
     for alienM in range(num_of_enemies):
         alienX[alienM] += alienX_changed[alienM]
         
+        if alienY[alienM] > 250:
+            for alienN in range(num_of_enemies):
+                alienX[alienN] = 2000
+
+            game_over_test()
+            break
+
         if alienX[alienM] <= 0:
             alienX[alienM] = 740
             alienY[alienM] += alienY_changed[alienM]
@@ -126,6 +149,11 @@ while running:
 
         collison = isCollision(alienX[alienM], alienY[alienM], bulletX, bulletY)
         if collison:
+
+            # If wanted sound effects for killing monster
+            #explosionSound = mixer.Sound("explosion.mp3")
+            #explosionSound.play()
+
             bulletY = 480
             bullet_state = "ready"
             score_val += 1

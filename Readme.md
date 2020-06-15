@@ -12,3 +12,8 @@ Icon made by https://smashicons.com/, title of image is Smashicons from https://
 
 Code was referenced from this video:
 https://www.youtube.com/watch?v=FfWpgLFMI7w
+
+Background music: Fearless First by Kevin Macleod
+Audio file downloaded from from:
+https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1600058
+
